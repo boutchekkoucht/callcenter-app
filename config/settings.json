@@ -1,0 +1,38 @@
+{
+  "superAdmin": {
+    "email": "a",
+    "password": "a",
+    "firstName": "super",
+    "lastName": "admin"
+  },
+  "server": {
+    "node": {
+      "port": 2000,
+      "oldFile": "stack.js",
+      "newFile": "stack.js"
+    },
+    "redis": {
+      "host": "localhost",
+      "port": 6379
+    }
+  },
+  "seed": false,
+  "mail": {
+    "selectedOption": "gmail",
+    "options": {
+      "gmail": {
+        "service": "Gmail",
+        "from": "dashboard@irevolution.fr",
+        "auth": {
+          "user": "dashboard@irevolution.fr",
+          "pass": "irevolution2013"
+        },
+        "secureConnection": false
+      },
+      "smtp": {
+        "host": "",
+        "from": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+<br/>
+<div class="col-md-12 col-lg-12 form-group col-xs-12" >
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control" ng-model="clphone" ng-change="searchClient()" placeholder="{{'Search by phone number'|translate}}"/>
+    </div>
+</div>
+
+
+<div class="col-md-12 col-lg-12 form-group col-xs-12" >
+    <div class="panel-body normal">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-adn"></i></span>
+                                    <input type="text" class="form-control" ng-model="client.firstName" placeholder="{{'First name'|translate}}" ng-if="!client._id"/>
+                                     <input type="text" class="form-control"  ng-if="client._id"  readonly ng-model="client.firstName" placeholder="{{'First name'|translate}}"/>
+                                </div>
+                                <p class="error" ng-if="required.firstName">{{'This field is required.'|translate}}</p>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-adn"></i></span>
+                                    <input type="text" class="form-control"  ng-if="!client._id" ng-model="client.lastName" placeholder="{{'Family name'|translate}}"/>
+                                     <input type="text" class="form-control"  ng-if="client._id" readonly ng-model="client.lastName" placeholder="{{'Family name'|translate}}"/>
+                                </div>
+                                <p class="error" ng-if="required.lastName">{{'This field is required.'|translate}}</p>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                                    <input type="text"  ng-if="!client._id" class="form-control" ng-model="client.email" placeholder="{{'Email'|translate}}"/>
+                                     <input type="text" class="form-control"  ng-if="client._id" readonly ng-model="client.email" placeholder="{{'Email'|translate}}"/>
+                                </div>
+                                <p class="error" ng-if="required.email">{{'Invalid email address.'|translate}}</p>
+                                <p class="error" ng-if="duplicate.email">{{'Email address already exists.'|translate}}</p>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                    <input type="text" class="form-control"  ng-if="!client._id" ng-model="client.phone" ng-blur="findClient(client.phone)"placeholder="{{'Phone'|translate}}"/>
+
+                                    <input type="text" class="form-control"  ng-if="client._id" readonly ng-model="client.phone" ng-blur="findClient(client.phone)"placeholder="{{'Phone'|translate}}"/>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        
+                         <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-puzzle-piece"></i></span>
+                                    <select class="form-control" id="role" ng-model="type" ng-options="r.code as r.name for r in typeRequests">
+                                    <option value="" disabled>{{'Type Request'|translate}}</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                    <textarea type="text" class="form-control" ng-model="request" placeholder="{{'Request'|translate}}"/>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <div class=" pull-right">
+        <button class="btn btn-primary btn-sm" ng-click="saveClient()"><i class="fa fa-floppy-o"></i> {{'Save'|translate}}</button>
+        <button class="btn btn-warning btn-sm" ng-click="cancel()"><i class="fa fa-undo"></i> {{'Cancel'|translate}}</button>
+    </div>
+</div>

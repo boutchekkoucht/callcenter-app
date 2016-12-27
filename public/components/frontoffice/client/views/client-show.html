@@ -1,0 +1,103 @@
+<br/>
+<div class="col-md-12 col-lg-12 form-group col-xs-12" style="padding-left: 30px;padding-right: 30px;" >
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control" ng-model="clphone" ng-change="searchClient()" placeholder="{{'Search by phone number'|translate}}"/>
+    </div>
+</div>
+
+
+<div class="col-md-12 col-lg-12 form-group col-xs-12" style="margin-bottom:150px" >
+    <div class="panel-body normal" ng-if="client._id">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-adn"></i></span>
+                                    <input type="text" class="form-control" readonly ng-model="client.firstName" placeholder="{{'First name'|translate}}"/>
+                                </div>
+                                <p class="error" ng-if="required.firstName">{{'This field is required.'|translate}}</p>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-adn"></i></span>
+                                    <input type="text" class="form-control" readonly ng-model="client.lastName" placeholder="{{'Family name'|translate}}"/>
+                                </div>
+                                <p class="error" ng-if="required.lastName">{{'This field is required.'|translate}}</p>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                                    <input type="text" class="form-control" readonly ng-model="client.email" placeholder="{{'Email'|translate}}"/>
+                                </div>
+                                <p class="error" ng-if="required.email">{{'Invalid email address.'|translate}}</p>
+                                <p class="error" ng-if="duplicate.email">{{'Email address already exists.'|translate}}</p>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                    <input type="text" class="form-control"  readonly ng-model="client.phone" placeholder="{{'Phone'|translate}}"/>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+                
+    </div>
+    <!-- <div >
+        {{r.createdAt}}  {{r.typeReq}} {{r.request}}
+    </div> -->
+
+
+          <div class="col-md-6 col-xs-6 bloc-6 " ng-repeat="r in client.requests">
+                            <fieldset  style="border: 1px solid #0003; border-radius: 10px;">
+                                <div class="thumbnail">
+                                    <div class="caption  role-header">
+                                                <span class="color-white">
+                                                    </i>
+                                                    {{r.typeReq | uppercase}}
+                                                </span>
+                                        
+                                    </div>
+
+                                    <div class="caption topPadding  col-md-6 col-xs-6">
+                                        <p>date :  {{r.createdAt | date : "dd/MM/yyyy"}}</p>
+                                        <p>type :  {{r.typeReq}}</p>
+                                        <p>request :   {{r.request}}</p>
+
+                                    </div>
+                                    <!-- <div class=" btn-group-justified topPadding">
+                                        <a href
+                                           ng-click="show.more[$index] = show.more[$index] === role.rights.length ? show.init : role.rights.length"
+                                           class="pull-right">
+                                            <span ng-if="show.more[$index] < role.rights.length"><i class="fa fa-eye"></i> {{'Show more'|translate}}...</span>
+                                            <span ng-if="show.more[$index] === role.rights.length && role.rights.length !== show.init"><i
+                                                    class="fa fa-eye-slash"></i> {{'Show less'|translate}}...</span>
+                                        </a>
+                                    </div> -->
+                                </div>
+                            </fieldset>
+                            
+                            <!-- <div class="btn-group input-group btn-group-justified topPadding rightelemnt">
+                                <a class="btn btn-warning btn-xs" ng-click="editRole(role._id)"
+                                   ><i class="fa fa-pencil"></i></a>
+                                <a ng-click="deleteRole(role._id)" class="btn btn-danger btn-xs"
+                                   ><i class="fa fa-trash"></i></a>
+                            </div> -->
+                        </div>
+
+
+   
+</div>

@@ -1,0 +1,13 @@
+<div class="container-fluid">
+    <div class="row topPadding">
+        <tabset class="tabs-left">
+            <tab ng-repeat="menu in menus" ui-sref="{{menu.state}}" ng-init="isTabActive = menu.state==currentState.name" active="isTabActive">
+                <tab-heading>
+                    <a translate><i class="{{menu.icon}} red"></i> {{menu.title}}</a>
+                </tab-heading>
+            </tab>
+        </tabset>
+
+        <div class="col-xs-12 col-md-10 col-lg-10" ui-view><h1>{{'Welcome in the app administration'|translate}}</h1></div>
+    </div>
+</div>

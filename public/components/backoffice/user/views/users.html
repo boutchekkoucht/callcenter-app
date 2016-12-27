@@ -1,0 +1,41 @@
+<div class="col-md-12 col-lg-12 admin-body" ng-if="currentUser.isSuperAdmin" >
+    </br>
+  
+    <div class="btn-group col-md-4 col-lg-4 col-xs-2" >
+        <a class="btn btn-info btn-sm" ng-click="addUser()"><i class="fa fa-plus-circle"></i> {{'Add user'|translate}}</a>
+    </div>
+    <br /><br/>
+
+    <table  class="table table-striped table-hover table-bordered admin-body col-md-12 col-lg-12 col-xs-12">
+        <thead>
+        <tr class="cenetred-element">
+            <th>{{'First name'|translate}}</th>
+            <th>{{'Last name'|translate}}</th>
+            <th>{{'Email'|translate}}</th>
+            <th>{{'Actions'|translate}}</th>
+        </tr>
+        </thead>
+        <tbody ng-repeat="user in users">
+        <tr >
+            <td>{{user.firstName | uppercase }}</td>
+            <td>{{user.lastName | uppercase }}</td>
+            <td>{{user.email}}</td>
+          
+            <td  >
+                <div class="btn-group btn-group-xs ">
+                    <a class="btn btn-warning" ng-click="editUser(user._id)"><i class="fa fa-pencil-square-o"></i></a>
+                    <a class="btn btn-danger" ng-click="deleteUser(user._id)"><i class="fa fa-trash"></i></a>
+                </div>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="cenetred-element">
+        <pagination total-items="pagination.totalItems"
+                    items-per-page="pagination.itemsPerPage"
+                    ng-model="pagination.currentPage">
+        </pagination>
+    </div>
+</div>
+

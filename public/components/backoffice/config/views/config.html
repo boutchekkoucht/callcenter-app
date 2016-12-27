@@ -1,0 +1,164 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12 col-lg-12">
+		<tabset>
+			<tab heading="{{'Parameters'|translate}}" >
+                <div class="row topPadding margin-bottom-10 pull-right">
+					<div class="col-xs-12 col-md-12 col-lg-12">
+                        <div class="btn-group" >
+                            <a class="btn btn-info btn-sm" ng-click="addParameter();">
+                                <i class="fa fa-plus-circle"></i> {{'Add Parameter'|translate}}</a>
+                        </div>
+					</div>
+				</div>
+                <div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<table class="table table-striped table-hover userList">
+									<thead>
+										<tr>
+											<th>{{'Parameter'|translate}}</th>
+											<th>{{'Value'|translate}}</th>
+											<th>{{'Actions'|translate}}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="(key, param) in parameters">
+											<td>{{key}}</td>
+											<td>
+												<div ng-if="!_.isObject(param)">
+													- {{param | limitTo : 120}} <br/>
+												</div>
+												<div ng-if="_.isObject(param)">
+													<span ng-repeat="(key1,param1) in param">
+														<div ng-if="!_.isObject(param1)">
+															- {{key1}} : {{param1 | limitTo : 80}} {{param1.length>=80 ? '...' :''}} <br/>
+														</div>
+														<div ng-if="_.isObject(param1)">
+                                                            - {{key1}} : <br>
+                                                            <span ng-repeat="(key2,param2) in param1">
+																&nbsp;&nbsp;&nbsp;- {{key2}} : {{param2 | limitTo : 80}} {{param2.length>=80 ? '...' :''}} <br/>
+															</span>
+														</div>
+													</span>
+												</div>
+
+											</td>
+											<td  width="70px">
+												<div class="btn-group btn-group-xs">
+													<a class="btn btn-warning" ng-click="editParameter({key : key, value : param});"><i class="fa fa-pencil-square-o"></i></a>
+													<a class="btn btn-danger" ng-click="removeParameter(key);"><i class="fa fa-trash"></i></a>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</tab>
+            <tab heading="{{'Application Update'|translate}}" >
+                <div class="btn-group input-group btn-group-justified btn-sm topPadding " style="padding-right:13px">
+                    <a ng-click="shell('update');" class="btn btn-default btn-arrow-right">
+                        <span popover="{{'svn update'|translate}}" popover-trigger="mouseenter" popover-placement="bottom">
+                            <i class="fa fa-refresh blue"></i>
+                            {{'Update resources'|translate}}
+                        </span>
+                    </a>
+                    <a ng-click="shell('resolve');" class="btn btn-default btn-arrow-right">
+                        <span popover="{{'svn resolve -R --accept theirs-full'|translate}}" popover-trigger="mouseenter" popover-placement="bottom">
+                            <i class="fa fa-check blue"></i>
+                            {{'Resolve conflicts'|translate}}
+                        </span>
+                    </a>
+                    <a ng-click="shell('install');" class="btn btn-default btn-arrow-right">
+                        <span popover="{{'npm install'|translate}}" popover-trigger="mouseenter" popover-placement="bottom">
+                            <i class="fa fa-retweet blue"></i>
+                            {{'Update modules'|translate}}
+                        </span>
+                    </a>
+                    <a ng-click="shell('restart');" class="btn btn-default btn-arrow-right">
+                        <span popover="{{'pm2 restart'|translate}}" popover-trigger="mouseenter" popover-placement="bottom">
+                            <i class="fa fa-power-off blue"></i>
+                            {{'Restart server'|translate}}
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xs-12 topPadding">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading">
+                                <i ng-if="serverResponse.processing" class="fa fa-spinner fa-spin"></i>
+                                {{'Operation result'|translate}}
+                            </h4>
+                        </li>
+                        <li class="list-group-item">
+                            <i ng-if="serverResponse.code && serverResponse.code=== 200 " class="fa fa-circle" style="color: green;">&nbsp;{{"Success"|translate}}</i>
+                            <i ng-if="serverResponse.code && serverResponse.code !== 200" class="fa fa-circle" style="color: red;">&nbsp;{{"Error"|translate}}</i>
+                            <br/>
+                        </li>
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading">{{'Message'|translate}}</h4>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="list-group-item-text" ng-bind-html="serverResponse.data"></p>
+                        </li>
+                    </ul>
+                </div>
+
+            </tab>
+            <tab heading="{{'Application Monitoring'|translate}}">
+
+                <div class="form-group topPadding">
+                    <div  ng-if="app.isMonitored">
+                        <h2 style="color:green"><i class="fa fa-check"></i> {{'Your application is monitored'|translate}}</h2>
+                        <a  href="https://rpm.newrelic.com" target="_blank" style="margin-left:41px;">
+                            <i class="fa fa-external-link"></i>
+                            <span>{{'See results'|translate}}</span>
+                        </a>
+                        <a  style="color:red;margin-left:7px;" href ng-click="monitor.stop()">
+                            <i class="fa fa-eye-slash"></i>
+                            <span>{{'Stop monitoring'|translate}}</span>
+                        </a>
+                    </div>
+                    <div ng-if="!app.isMonitored">
+                        <h2 style="color:red"><i class="fa fa-close"></i> {{'Your application is not monitored'|translate}}</h2>
+                        <a  href ng-click="app.startMonitoring = !app.startMonitoring">
+                            <i class="fa fa-eye"></i>
+                            <span>{{'Start monitoring'|translate}}</span>
+                        </a>
+                    </div>
+
+                    <div class="row topPadding" ng-if="app.startMonitoring" >
+                        <div class="col-md-4 col-xs-4">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-adn"></i></span>
+                                    <input type="text" class="form-control" ng-model="app.name" placeholder="{{'Application name'|translate}}"/>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                        <div class="col-md-4 col-xs-4">
+                            <fieldset>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                    <input type="text" class="form-control" ng-model="app.licence" placeholder="{{'Licence'|translate}}"/>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <fieldset>
+                                <div class="input-group">
+                                   <button class="btn btn-primary" ng-click="monitor.set();app.startMonitoring=false;"><i class="fa fa-save">&nbsp;{{'Save'|translate}}</i></button>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+            </tab>
+		</tabset>
+	</div>
+</div>
